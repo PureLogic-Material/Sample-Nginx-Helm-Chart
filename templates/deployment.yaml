@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+spec:
+  replicas: {{.Values.replicaCount}}
+  selector:
+    matchLabels:
+      app: nginx
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - image: nginx:latest
+        name: nginx
+        ports:
+        - containerPort: 8080
+          name: web
+      #   volumeMounts:
+      #     - name: config-vol
+      #       mountPath: /etc/nginx/
+      # volumes:
+      #   - name: config-vol
+      #     configMap:
+      #       name: nginx-config
+      #       items:
+      #         - key: nginx.conf
+      #           path: nginx.conf
+        volumeMounts:
+          - name: config-vol
+            mountPath: /etc/nginx/
+          - name: my-volume
+            mountPath: /etc/Test/  # Choose the path where you want to mount it inside the container
+      volumes:
+      - name: config-vol
+        configMap:
+          name: nginx-config
+          items:
+          - key: nginx.conf
+            path: nginx.conf
+      - name: my-volume
+        hostPath:
+          path: /home/purelogics-3153/Downloads/Test1/  # Path to your local directory
+          type: DirectoryOrCreate

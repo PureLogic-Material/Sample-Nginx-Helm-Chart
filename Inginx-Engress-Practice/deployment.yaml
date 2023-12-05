@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "2"
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"name":"web-frontend","namespace":"web"},"spec":{"replicas":3,"selector":{"matchLabels":{"app":"web-frontend"}},"template":{"metadata":{"labels":{"app":"web-frontend"}},"spec":{"containers":[{"image":"nginx:1.14.2","name":"nginx"}]}}}}
+  creationTimestamp: "2023-12-05T09:06:23Z"
+  generation: 2
+  name: web-frontend
+  namespace: web
+  resourceVersion: "1981"
+  uid: b2e88655-24f2-4efc-a5e5-d5ec9d026756
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 3
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: web-frontend
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: web-frontend
+    spec:
+      containers:
+      - image: nginx:1.14.2
+        imagePullPolicy: IfNotPresent
+        name: nginx
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status:
+  availableReplicas: 3
+  conditions:
+  - lastTransitionTime: "2023-12-05T09:06:42Z"
+    lastUpdateTime: "2023-12-05T09:06:42Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  - lastTransitionTime: "2023-12-05T09:06:23Z"
+    lastUpdateTime: "2023-12-05T09:18:13Z"
+    message: ReplicaSet "web-frontend-6b9d4db7f5" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  observedGeneration: 2
+  readyReplicas: 3
+  replicas: 3
+  updatedReplicas: 3

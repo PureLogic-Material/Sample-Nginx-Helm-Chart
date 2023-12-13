@@ -45,4 +45,4 @@ spec:
       - name: my-volume
         hostPath:
           path: /home/purelogics-3153/Downloads/Test1/  # Path to your local directory
-          type: DirectoryOrCreate
+         # type: DirectoryOrCreate

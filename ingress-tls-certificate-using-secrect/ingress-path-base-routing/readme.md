@@ -15,13 +15,17 @@ Navigate to the IP address using a new browser tab. If you get an NGINX 404 Not 
 
 
 PART B Deploy the First Application and Ingress
+
 Create the hello-app deployment:
-
 kubectl create deployment hello-app --image=gcr.io/google-samples/hello-app:1.0
-Expose the deployment:
 
+Expose the deployment:
 kubectl expose deployment hello-app --port=8080 --target-port=8080
+
 Click Open Editor.
+vi ingress.yaml
+kubectl apply -f ingress.yaml 
+
 
 PART C Deploy the Second Application and Ingress
 Create the whereami deployment:

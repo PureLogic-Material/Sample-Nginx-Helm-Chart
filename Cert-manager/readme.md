@@ -4,8 +4,15 @@ kubectl get service -n accounts
 openssl req -nodes -new -x509 -keyout accounts.key -out accounts.crt -subj "/CN=hello-app.svc"
 
 //2nd method to generate key and certificate using DNS.......... 
-openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout ingress.key -out ingress.crt -subj "/CN="DNS-Name"=ingress"
-openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout ingress.key -out ingress.crt -subj "/CN="c1-dns-ozzr7srn.hcp.eastus.azmk8s.io"=ingress"
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout ingress.key -out ingress.crt -subj "/CN=busyboy.pro/O=busyboy.pro"
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout ingress.key -out ingress.crt -subj "/CN=c1-dns-ozzr7srn.hcp.eastus.azmk8s.io=ingress"
+
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+    -out aks-ingress-tls.crt \
+    -keyout aks-ingress-tls.key \
+    -subj "/CN=busyboy.pro/O=busyboy.pro" \
+    -addext "subjectAltName=DNS:busyboy.pro"
+
 vi accounts-tls-certs-secret.yml
 
 
